@@ -98,8 +98,13 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 DATABASES = {
-    'default': dj_database_url.config(conn_max_age=600,  default=config('DATABASE_URL'))
+    'default': dj_database_url.config(
+        conn_max_age=600,
+        ssl_require=True,
+        default=config('DATABASE_URL')
+    )
 }
+
 DATABASES['default']['ENGINE'] = 'django.db.backends.postgresql'
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
