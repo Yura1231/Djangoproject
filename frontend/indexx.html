@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Реєстрація та Вхід</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <button id="register-open-btn">Реєстрація</button>
+    <button id="login-open-btn">Увійти</button>
+    <button id="profile-btn" style="display:none;">Мій профіль</button>
+    <button id="logout-btn" style="display:none;">Вихід</button>
+
+    <div id="register-form" class="modal">
+        <h2>Реєстрація</h2>
+        <input type="text" id="register-username" placeholder="Логін" required>
+        <input type="email" id="register-email" placeholder="Email" required>
+        <input type="password" id="register-password" placeholder="Пароль" required>
+        <input type="text" id="register-phone" placeholder="Телефон">
+    
+        <label for="register-is-special">Реєстрація як:</label>
+        <select id="register-is-special">
+            <option value="false">Звичайний користувач</option>
+            <option value="true">Спеціальний користувач</option>
+        </select>
+    
+        <button id="register-btn">Зареєструватися</button>
+        <button class="close-btn">Закрити</button>
+    </div>
+    
+
+    <div id="login-form" class="modal">
+        <h2>Вхід</h2>
+        <input type="text" id="login-email" placeholder="Логін" required>
+        <input type="password" id="login-password" placeholder="Пароль" required>
+        <button id="login-btn">Увійти</button>
+        <button class="close-btn">Закрити</button>
+    </div>
+    <h1>Список постів</h1>
+    <ul id="post-list"></ul>
+    <button id="join-btn" style="display:none;">Долучитися</button>
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>

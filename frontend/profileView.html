@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Профіль користувача</title>
+    <link rel="stylesheet" href="profileView.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-container">
+                <div class="logo">HANDY</div>
+            <nav class="header-nav">
+                    <ul class="header-menu">
+                        <li><a class= "link" href="index.html">Головна</a></li>
+                        <li><a class= "link" href="test.html">Події</a></li>
+                        <li><a class= "link" href="about-us.html">Про нас</a></li>
+                        <li><a class= "link" href="/contact.html">Контакти</a></li>
+                    </ul>
+                </nav>
+                <div class="auth">
+                    <a class= "link" href="login.html">Увійти</a> | <a class= "link" href="register-form.html">Зареєструватись</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container profile-container">
+        <div>
+            <h2 class="profile-header">Профіль користувача</h2>
+            <img src="profilePhoto.jpg" alt="Фото користувача" class="profile-photo" id="profilePhoto">
+            <input type="file" id="photoInput" style="display: none;">
+            <div id="userNameWrapper">
+                <h3 id="userName">Ім'я Прізвище</h3>
+            </div>
+        </div>
+        <div class="profile-info">
+            <div>
+                <input type="text" id="content" class="input-field" placeholder="Чим займається користувач" disabled>
+            </div>
+            <div>
+                <textarea class="comment-filed" placeholder="Напишіть щось" id="comment"></textarea>
+            </div>
+            
+            <button class="coment-btn" id="publishBtn">Залишити відгук</button>
+        </div>
+    </div>
+    
+
+    <div class="tabs-container">
+        <span class="tab active" data-tab="published">Публікували</span>
+        <span class="tab" data-tab="helped">Допомогли</span>
+        <span class="tab" data-tab="reviews">Відгуки</span>
+        
+        <div class="tab-content active" id="published">
+            <div class="content-box default-text">Немає доступних публікацій.</div>
+        </div>
+        <div class="tab-content" id="helped">
+            <div class="content-box default-text">Немає подій на які погодився цей користувач.</div>
+        </div>
+        <div class="tab-content" id="reviews">
+            <div class="content-box default-text">Відгуки про користувача відсутні.</div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-container">
+                <nav class="footer-nav">
+                    <div class="footer-logo">
+                        <div class="logo">HANDY</div>
+                    </div>
+                    <ul class="footer-menu">
+                        <li><a class="footer-link" href="/index.html">Головна</a></li>
+                        <li><a class="footer-link" href="#">Події</a></li>
+                        <li><a class="footer-link" href="/about-us.html">Про нас</a></li>
+                        <li><a class="footer-link" href="contact.html">Контакти</a></li>
+                    </ul>
+                </nav>
+                <address class="footer-address">
+                    <ul class="adsress-list">
+                        <li><a class="address-link" href="tel:+380960000007">+ 38 (096) 000 00 07</a></li>
+                        <li><a class="address-link" href="mailto:handysupport@gmail.com">handysupport@gmail.com</a></li>
+                    </ul>
+                    <div class="address-info">
+                        <a class="address-link" href="" target="_blank">Політика конфійдеційності</a>
+                    <p class="address-copyright">
+                        &copy; Дані захищено
+                    </p>
+                    </div>
+                </address>
+            </div>
+        </div>
+    </footer>
+    <script src="profileView.js"></script>
+</body>
+</html>

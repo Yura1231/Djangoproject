@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Список подій</title>
+    <!-- <link rel="stylesheet" href="style.css"> -->
+</head>
+<body>
+    <section class="events-container">
+        <h1>Події</h1>
+        <div id="events-list" class="events-list">
+            <!-- Події будуть додаватися тут динамічно -->
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const eventsList = document.getElementById('events-list');
+            const token = localStorage.getItem('token'); // Передбачається, що токен збережений у localStorage
+    
+            try {
+                let response = await fetch("http://127.0.0.1:8000/events/", {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                });
+    
+                if (!response.ok) {
+                    throw new Error("Не вдалося завантажити події");
+                }
+    
+                let events = await response.json();
+    
+                if (events.length === 0) {
+                    eventsList.innerHTML = `<p>Наразі немає доступних подій.</p>`;
+                    return;
+                }
+    
+                events.forEach(async (event) => {
+                    const isRegistered = await checkRegistration(event.id);
+                    const eventCard = document.createElement("div");
+                    eventCard.classList.add("event-card");
+    
+                    
+    
+                    eventCard.innerHTML = `
+                        <img src="http://127.0.0.1:8000${event.image}" alt="${event.title}">
+                        <div class="event-content">
+                            <a href="profileView.html?userId=${event.posted_by}" class="user-profile-link">
+            <img src="http://127.0.0.1:8000${event.posted_by_profile_picture || 'https://via.placeholder.com/50'}" alt="User Avatar" class="user-avatar">
+        </a>
+                            <h2>${event.title}</h2>
+                            <p><strong>Категорія:</strong> ${event.category}</p>
+                            <p><strong>Місце:</strong> ${event.location_full}</p>
+                            <p><strong>Час:</strong> ${event.start_date} - ${event.end_date}</p>
+                            <p><strong>Телефон:</strong> ${event.phone_number}</p>
+                            <p><strong>Email:</strong> ${event.email}</p>
+                            <p><strong>Створив :</strong> ${event.posted_by}</p>
+                            <p><strong>Створив:</strong> 
+        
+                            <p><strong>Опис:</strong> ${event.description}</p>
+                            <button class="subscribe-btn" data-event-id="${event.id}">
+                                ${isRegistered ? "Відписатися" : "Підписатися"}
+                            </button>
+                        </div>
+                    `;
+    
+                    eventsList.appendChild(eventCard);
+
+                    
+                });
+
+                
+    
+                // Додаємо обробники кліків на кнопки
+                eventsList.addEventListener("click", async (event) => {
+                    if (event.target.classList.contains("subscribe-btn")) {
+                        const button = event.target;
+                        const eventId = button.dataset.eventId;
+                        const isSubscribed = button.innerText === "Відписатися";
+    
+                        if (isSubscribed) {
+                            await unsubscribe(eventId);
+                            button.innerText = "Підписатися";
+                        } else {
+                            await subscribe(eventId);
+                            button.innerText = "Відписатися";
+                        }
+                    }
+                });
+    
+            } catch (error) {
+                console.error("Помилка:", error);
+                eventsList.innerHTML = `<p>Сталася помилка при завантаженні подій.</p>`;
+            }
+    
+            async function checkRegistration(eventId) {
+                const response = await fetch(`http://127.0.0.1:8000/events/${eventId}/check-registration/`, {
+                    method: "GET",
+                    headers: {
+                        "Authorization": "Bearer " + localStorage.getItem("access_token"),
+                        "Content-Type": "application/json"
+                    }
+                });
+    
+                const data = await response.json();
+                return data.registered;
+            }
+    
+            async function subscribe(eventId) {
+                const response = await fetch(`http://127.0.0.1:8000/events/${eventId}/`, {
+                    method: "POST",
+                    headers: {
+                        "Authorization": "Bearer " + localStorage.getItem("access_token"),
+                        "Content-Type": "application/json"
+                    }
+                });
+    
+                const data = await response.json();
+                console.log(data.message);
+            }
+    
+            async function unsubscribe(eventId) {
+                const response = await fetch(`http://127.0.0.1:8000/unsubscribe/${eventId}/`, {
+                    method: "POST",
+                    headers: {
+                        "Authorization": "Bearer " + localStorage.getItem("access_token"),
+                        "Content-Type": "application/json"
+                    }
+                });
+    
+                const data = await response.json();
+                console.log(data.message);
+            }
+        });
+
+
+        
+    </script>
+    
+    
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            padding: 20px;
+        }
+
+        .events-container {
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .events-list {
+            display: grid;
+            
+            gap: 20px;
+        }
+
+        .event-card {
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .event-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .event-content {
+            padding: 20px;
+        }
+
+        h2 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        p {
+            margin: 5px 0;
+        }
+
+        .subscribe-btn {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.subscribe-btn:hover {
+    background-color: #0056b3;
+}
+    </style>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Профіль користувача</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <h1>Профіль користувача</h1>
+    <div id="profile-container">
+        <p><strong>Логін:</strong> <span id="profile-username"></span></p>
+        <p><strong>Email:</strong> <span id="profile-email"></span></p>
+        <p><strong>Телефон:</strong> <span id="profile-phone"></span></p>
+        <h2>Ваші підписки на події</h2>
+        <ul id="subscribed-posts-list"></ul>
+    </div>
+    
+    <button id="back-btn">Назад</button>
+
+    <script>
+        document.getElementById('back-btn').addEventListener('click', function() {
+            window.location.href = 'index.html';
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const accessToken = localStorage.getItem('access_token');
+
+            if (!accessToken) {
+                alert('Ви не авторизовані');
+                window.location.href = 'index.html';
+                return;
+            }
+
+            
+            fetch('http://127.0.0.1:8000/profile/', {
+                method: 'GET',
+                headers: {
+                    'Authorization': 'Bearer ' + accessToken
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('profile-username').innerText = data.username;
+                document.getElementById('profile-email').innerText = data.email;
+                document.getElementById('profile-phone').innerText = data.phone || 'Не вказано';
+
+                // Виведення підписок
+                const subscribedPostsList = document.getElementById('subscribed-posts-list');
+                data.subscribed_posts.forEach(postId => {
+                    const postItem = document.createElement('li');
+                    postItem.textContent = `Підписано на подію #${postId}`;
+                    subscribedPostsList.appendChild(postItem);
+                });
+            })
+            .catch(error => {
+                console.error('Помилка:', error);
+                alert('Помилка завантаження профілю');
+                window.location.href = 'index.html';
+            });
+        });
+    </script>
+
+</body>
+</html>

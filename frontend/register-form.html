@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Реєстрація</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="wrapper">
+    <form id="register-form">
+      <h2>РЕЄСТРАЦІЯ НА ПЛАТФОРМІ</h2>
+      <div class="input-field">
+        <input type="text" id="first_name" required>
+        <label>Ім'я</label>
+      </div>
+      <div class="input-field">
+        <input type="text" id="last_name" required>
+        <label>Прізвище</label>
+      </div>
+      <div class="input-field">
+        <input type="email" id="email" required>
+        <label>Електронна адреса</label>
+      </div>
+      <div class="input-field">
+        <input type="tel" id="phone_number" required>
+        <label>Номер телефону</label>
+      </div>
+      <div class="input-field">
+        <input type="password" id="password" required>
+        <label>Пароль</label>
+      </div>
+      <button type="submit">Зареєструватись</button>
+      <div class="register">
+        <p>Вже маєте профіль? <a href="login.html">Увійдіть</a></p>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById('register-form').addEventListener('submit', async function(event) {
+      event.preventDefault(); // Зупиняємо перезавантаження сторінки
+
+      // Отримуємо значення полів
+      const first_name = document.getElementById('first_name').value;
+      const last_name = document.getElementById('last_name').value;
+      const email = document.getElementById('email').value;
+      const phone_number = document.getElementById('phone_number').value;
+      const password = document.getElementById('password').value;
+
+      // Відправка запиту на сервер
+      const response = await fetch('http://127.0.0.1:8000/register/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ 
+          first_name, 
+          last_name, 
+          email, 
+          phone_number, 
+          password 
+        })
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        alert('Реєстрація успішна! Тепер увійдіть.');
+        window.location.href = 'login.html';
+      } else {
+        alert(data.error || 'Помилка реєстрації');
+      }
+    });
+  </script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Форма реєстрація</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    
+    <div class="form-container">
+        <h2>РЕЄСТРАЦІЯ НА ПЛАТФОРМІ</h2>
+        <p class="p-login">Зареєструйся та почни творити добрі справи</p>
+        <form>
+            <div class="form-group">
+                <label for="first-name">Ім'я</label>
+                <input class="register" type="text" id="first-name" name="first-name" required>
+            </div>
+            <div class="form-group">
+                <label for="last-name">Прізвище</label>
+                <input class="register" type="text" id="last-name" name="last-name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Електронна адреса</label>
+                <input class="register" type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">Номер телефону</label>
+                <input class="register" type="tel" id="phone" name="phone" pattern="^\+380\d{9}$" placeholder="+380" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Пароль</label>
+                <input class="register" type="password" id="password" name="password" required>
+            </div>
+            <button type="submit" class="submit-btn button">Зареєструватись</button>
+        </form>
+        <p class="login-link">Вже маєте профіль? <a class="form-link" href="#">Увійдіть</a></p>
+    </div>
+    
+</body>
+</html> -->

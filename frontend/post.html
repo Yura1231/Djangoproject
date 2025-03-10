@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Деталі поста</title>
+</head>
+<body>
+    <h1 id="post-title"></h1>
+    <p id="post-content"></p>
+
+    <button id="join-btn" style="display:none;">Долучитися</button>
+    <button id="leave-btn" style="display:none;">Відписатися</button>
+
+    <a href="index.html">⬅ Назад до списку постів</a>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const postId = urlParams.get("id");
+            const isSpecial = localStorage.getItem('is_special') === 'true';
+            const joinBtn = document.getElementById('join-btn');
+            const leaveBtn = document.getElementById('leave-btn');
+            const accessToken = localStorage.getItem('access_token');
+    
+            if (!accessToken) {
+                alert('Ви не авторизовані!');
+                window.location.href = 'index.html';
+                return;
+            }
+    
+            if (postId) {
+                fetch(`http://127.0.0.1:8000/posts/${postId}/`)
+                    .then(response => response.json())
+                    .then(post => {
+                        document.getElementById("post-title").textContent = post.title;
+                        document.getElementById("post-content").textContent = post.content;
+    
+                        if (isSpecial) {
+                            checkSubscription(postId);
+                        }
+                    })
+                    .catch(error => console.error("Помилка при отриманні поста:", error));
+            } else {
+                document.body.innerHTML = "<h1>Помилка: пост не знайдено</h1>";
+            }
+    
+            function checkSubscription(postId) {
+                fetch(`http://127.0.0.1:8000/sub/${postId}/check/`, {
+                    headers: { 'Authorization': 'Bearer ' + accessToken }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.subscribed) {
+                        joinBtn.style.display = 'none';
+                        leaveBtn.style.display = 'inline-block';
+                    } else {
+                        joinBtn.style.display = 'inline-block';
+                        leaveBtn.style.display = 'none';
+                    }
+                })
+                .catch(error => console.error('Помилка перевірки підписки:', error));
+            }
+    
+            joinBtn.addEventListener('click', function() {
+                fetch(`http://127.0.0.1:8000/sub/${postId}/`, {
+                    method: 'POST',
+                    headers: { 'Authorization': 'Bearer ' + accessToken }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    alert(data.message);
+                    joinBtn.style.display = 'none';
+                    leaveBtn.style.display = 'inline-block';
+                })
+                .catch(error => console.error('Помилка при підписці:', error));
+            });
+    
+            leaveBtn.addEventListener('click', function() {
+                fetch(`http://127.0.0.1:8000/unsubscribe/${postId}/`, {
+                    method: 'POST',
+                    headers: { 'Authorization': 'Bearer ' + accessToken }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    alert(data.message);
+                    joinBtn.style.display = 'inline-block';
+                    leaveBtn.style.display = 'none';
+                })
+                .catch(error => console.error('Помилка при відписці:', error));
+            });
+        });
+    </script>
+</body>
+</html>

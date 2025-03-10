@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HANDY - Головна</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-container">
+                <div class="logo">HANDY</div>
+             <nav class="header-nav">
+                     <ul class="header-menu">
+                        <li><a class= "link" href="/index.html">Головна</a></li>
+                        <li><a class= "link" href="test.html">Події</a></li>
+                        <li><a class= "link" href="/about-us.html">Про нас</a></li>
+                        <li><a class= "link" href="#">Контакти</a></li>
+                     </ul>
+                </nav>
+                <div class="auth">
+                    <a class= "link" href="login.html" id="login-btn"  >Увійти</a> | <a class= "link" href="/register-form.html" id="register-btn">Зареєструватись</a> | <button type="button" id="logout-btn" style="display:none;">Вихід</button> <a class= "link" href="userProfile.html" id="profile-btn" style="display: none;" >Профіль </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <body>
+        <section class="hero">
+            <div class="container">
+                <h1>HANDY</h1>
+            <p>Долучайся. Допомагай. Змінюй!</p>
+            </div>
+            
+        </section>
+
+        <section class="platform-possibilities">
+            <div class="container">
+                <h2>ЩО МОЖЕ ПЛАТФОРМА?</h2>
+            <div class="cards-container">
+                <div class="card">
+                    <img class="card-foto" src="/images/cart2.avif" alt="Корисне про допомогу під час війни">
+                    <h3>Корисне про допомогу під час війни</h3>
+                    <p>Читайте корисні поради про волонтерство та допомогу в часи війни</p>
+                </div>
+                <div class="card">
+                    <img class="card-foto" src="/images/cart1.jpg" alt="Всі волонтерські можливості в одному місці">
+                    <h3>Всі волонтерські можливості в одному місці</h3>
+                    <p>Знаходьте можливості у своєму місті чи онлайн, реєструйтесь та починайте творити добро.</p>
+                </div>
+                <div class="card">
+                    <img class="card-foto" src="/images/cart3.jpg" alt="Станьте частиною великої справи">
+                    <h3>Станьте частиною великої справи</h3>
+                    <p>Обирайте проєкти, що відповідають вашим навичкам та інтересам, і робіть свій внесок у важливі ініціативи.</p>
+                </div>
+                <div class="card">
+                    <img class="card-foto" src="/images/cart4.webp" alt="Об’єднуємо тих, хто хоче допомагати">
+                    <h3>Об’єднуємо тих, хто хоче допомагати</h3>
+                    <p>Знаходьте актуальні волонтерські можливості та долучайтеся до змін у вашій спільноті чи онлайн.</p>
+                </div>
+            </div>
+            </div>
+        </section>
+        
+
+        <section class="cta container">
+            <div class="container">
+                <h2>Шукаєте волонтерів для вашої ініціативи?</h2>
+            <p>Створюйте особистий кабінет організації, публікуйте можливості та знаходьте волонтерів для підсилення команди всього за кілька кроків.</p>
+            <button class="cta-button" onclick="window.location.href='/register-form.html';">Створити кабінет →</button>
+            </div>
+        </section>
+
+
+        <div class="container">
+            <h1 class="faq-h1">Питання та Відповіді</h1>
+            <div class="faq">
+                <div class="faq-menu">
+                    <button class="faq-btn active" data-target="volunteers-faq">Для волонтерів</button>
+                    <button class="faq-btn" data-target="general-faq">Загальні питання</button>
+                </div>
+                <div class="faq-list">
+                    <div id="volunteers-faq" class="faq-section active">
+                        <div class="faq-item">
+                            <div class="faq-question">Чи потрібно реєструватись на Платформі, якщо я хочу волонтерити?</div>
+                            <div class="faq-answer">Якщо ви хочете долучитись до волонтерського руху, вам не обов'язково реєструватись на Платформі. Достатньо натиснути "Подати заявку", щоб отримати доступ до можливостей.</div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-question">Чи можу я додавати волонтерські можливості від себе?</div>
+                            <div class="faq-answer">Так, ви можете додавати можливості, якщо вони відповідають нашим критеріям.</div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-question">Чи повинен мати особливі навички та вміння?</div>
+                            <div class="faq-answer">Не обов'язково, але наявність навичок може бути корисною.</div>
+                        </div>
+                    </div>
+        
+                    <div id="general-faq" class="faq-section">
+                        <div class="faq-item">
+                            <div class="faq-question">Що таке платформа і для чого вона потрібна?</div>
+                            <div class="faq-answer">Платформа допомагає волонтерам знаходити можливості для допомоги.</div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-question">Як зв’язатися з технічною підтримкою?</div>
+                            <div class="faq-answer">Ви можете написати нам на електронну пошту або через форму зворотного зв’язку.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        
+    
+        <script>
+            document.querySelectorAll('.faq-item').forEach(item => {
+          item.addEventListener('click', () => {
+         item.classList.toggle('open');
+        });
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+    const buttons = document.querySelectorAll(".faq-btn");
+    const sections = document.querySelectorAll(".faq-section");
+
+    buttons.forEach(button => {
+        button.addEventListener("click", function () {
+            // Видаляємо клас active у всіх кнопок
+            buttons.forEach(btn => btn.classList.remove("active"));
+            this.classList.add("active");
+
+            // Приховуємо всі секції
+            sections.forEach(section => section.classList.remove("active"));
+
+            // Відображаємо вибрану секцію
+            const targetId = this.getAttribute("data-target");
+            document.getElementById(targetId).classList.add("active");
+        });
+    });
+});
+
+
+
+        </script>
+    </main>
+
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-container">
+                <nav class="footer-nav">
+                    <div class="footer-logo">
+                        <div class="logo">HANDY</div>
+                    </div>
+                     <ul class="footer-menu">
+                        <li><a class="footer-link" href="/index.html">Головна</a></li>
+                        <li><a class="footer-link" href="#">Події</a></li>
+                        <li><a class="footer-link" href="/about-us.html">Про нас</a></li>
+                        <li><a class="footer-link" href="#">Контакти</a></li>
+                     </ul>
+                </nav>
+                <address class="footer-address">
+                    <ul class="adsress-list">
+                        <li><a class="address-link" href="tel:+380960000007">+ 38 (096) 000 00 07</a></li>
+                        <li><a class="address-link" href="mailto:handysupport@gmail.com">handysupport@gmail.com</a></li>
+                    </ul>
+                    <div class="address-info">
+                        <a class="address-link" href="" target="_blank">Політика конфійдеційності</a>
+                    <p class="address-copyright">
+                        &copy; Дані захищено
+                    </p>
+                    </div>
+                </address>
+
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+    const accessToken = localStorage.getItem('access_token');
+   
+
+    if (accessToken) {
+        document.getElementById('register-btn').style.display = 'none';
+        document.getElementById('login-btn').style.display = 'none';
+        document.getElementById('logout-btn').style.display = 'inline-block';
+        document.getElementById('profile-btn').style.display = 'inline-block';
+
+        
+    }
+
+    
+});
+
+document.getElementById('logout-btn').addEventListener('click', function () {
+    
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('refresh_token');
+    
+    location.reload();
+
+    
+    
+});
+
+document.getElementById('profile-btn').addEventListener('click', function() {
+    window.location.href = 'profile.html';
+});
+
+    </script>
+</body>
+</html>
